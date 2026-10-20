@@ -8,17 +8,17 @@ Dokumen ini menjelaskan arsitektur sistem, batasan protokol Discord Webhook, str
 
 ```mermaid
 flowchart TD
-    A[Situs Resmi Nogizaka Colors\nngColors_{member_id}] -->|GET HTML Request| B[HTML Parser Engine\nhtml.parser bawaan Python]
-    B -->|Filter: /images/46/ \nExcl: logos, icons, OGP| C[Daftar URL Foto Resolusi Tinggi]
-    C -->|GET Image Bytes| D[In-Memory Streamer\nBuffer RAM tanpa residu disk]
-    D --> E{Dynamic Smart Batcher\nMax 6 Foto ATAU < 8.5 MB?}
-    E -->|Kapasitas Batch Penuh| F[Discord Webhook Client\nMultipart Form-Data]
-    E -->|Masih Muat| D
-    F --> G{Status Kode Discord}
-    G -->|200 / 204 OK| H[Pesan & Grid Foto Tampil\ndi Thread Discord]
-    G -->|429 Rate Limit| I[Adaptive Backoff\nSleep retry_after + 0.5s]
+    A["Situs Resmi Nogizaka Colors<br/>ngColors_member_id"] -->|"GET HTML Request"| B["HTML Parser Engine<br/>html.parser bawaan Python"]
+    B -->|"Filter /images/46/<br/>Excl: logos, icons, OGP"| C["Daftar URL Foto Resolusi Tinggi"]
+    C -->|"GET Image Bytes"| D["In-Memory Streamer<br/>Buffer RAM tanpa residu disk"]
+    D --> E{"Dynamic Smart Batcher<br/>Maks 6 Foto ATAU di bawah 8.5 MB?"}
+    E -->|"Kapasitas Batch Penuh"| F["Discord Webhook Client<br/>Multipart Form-Data"]
+    E -->|"Masih Muat"| D
+    F --> G{"Status Kode Discord"}
+    G -->|"200 / 204 OK"| H["Pesan & Grid Foto Tampil<br/>di Thread Discord"]
+    G -->|"429 Rate Limit"| I["Adaptive Backoff<br/>Sleep retry_after + 0.5s"]
     I --> F
-    G -->|413 Payload Too Large| J[Auto-Split Bisector\nPecah Batch jadi 2 Bagian]
+    G -->|"413 Payload Too Large"| J["Auto-Split Bisector<br/>Pecah Batch jadi 2 Bagian"]
     J --> F
 ```
 
