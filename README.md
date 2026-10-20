@@ -66,33 +66,20 @@ Berikut adalah 5 bukti tangkapan layar live dari server Discord (Channel `#gamba
 
 ## 🏗️ Arsitektur & Alur Kerja Teknis
 
-```
-[ Situs Resmi nogizaka46.com ]
-                │
-                ▼ (HTTP GET dengan browser User-Agent)
-┌────────────────────────────────────────────────────────┐
-│  Scraper Engine (Python Built-in HTMLParser)           │
-│  - Ekstraksi tag <img> & data-src                      │
-│  - Filter /images/46/ (eliminasi logo, banner, OGP)    │
-└────────────────────────────────────────────────────────┘
-                │
-                ▼ (URL Foto Resolusi Tinggi)
-┌────────────────────────────────────────────────────────┐
-│  In-Memory Streamer (Bytes Buffer)                     │
-│  - Unduh langsung ke RAM (0 bytes residu disk)         │
-│  - Dynamic Smart Batching (< 8.5 MB atau maks 6 foto)  │
-└────────────────────────────────────────────────────────┘
-                │
-                ▼ (Multipart Form-Data POST)
-┌────────────────────────────────────────────────────────┐
-│  Discord Webhook Engine                                │
-│  - Parameter thread: ?thread_id={ID}                   │
-│  - Auto-Split Bisector jika HTTP 413                   │
-│  - Linear Backoff jika HTTP 429 (retry_after)          │
-└────────────────────────────────────────────────────────┘
-                │
-                ▼
-[ Discord Thread: Nogizaka Colors (Gen 6) ]
+```mermaid
+flowchart TD
+    A["🌐 Situs Resmi Nogizaka Colors<br/>(nogizaka46.com/gallery)"] -->|"HTTP GET Request"| B["🔍 HTML Parser Engine<br/>(html.parser bawaan Python)"]
+    B -->|"Filter URL: /images/46/<br/>(Eliminasi logo, banner & OGP)"| C["📋 Daftar URL Foto Resolusi Penuh"]
+    C -->|"GET Image Bytes"| D["💾 In-Memory Streamer<br/>(Buffer RAM, 0 Byte Residu Disk)"]
+    D --> E{"⚖️ Dynamic Smart Batcher<br/>Maks 6 Foto ATAU di bawah 8.5 MB?"}
+    E -->|"Kapasitas Batch Penuh"| F["🚀 Discord Webhook Client<br/>(Multipart Form-Data + ?thread_id=)"]
+    E -->|"Masih Muat"| D
+    F --> G{"📡 Status Response Discord"}
+    G -->|"200 / 204 OK"| H["💬 Pesan & Grid Foto Tampil<br/>di Thread Discord"]
+    G -->|"429 Rate Limit"| I["⏳ Adaptive Backoff<br/>Sleep retry_after + 0.5s"]
+    I --> F
+    G -->|"413 Payload Too Large"| J["✂️ Auto-Split Bisector<br/>Pecah Batch jadi 2 Bagian"]
+    J --> F
 ```
 
 Selengkapnya mengenai keputusan desain teknis dapat dibaca pada [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
