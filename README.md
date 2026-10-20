@@ -59,7 +59,7 @@ Berikut adalah 5 bukti tangkapan layar live dari server Discord (Channel `#gamba
 | <img src="assets/screenshots/01_urumi_morihira_header.png" width="350" alt="Urumi Morihira Header" /> | **森平 麗心 / Urumi Morihira**<br>`ID: 63110` | **Header Identitas & Grid Layout**:<br>Menampilkan pesan pengantar beremotikon sakura, ringkasan jumlah foto (17 foto), tautan galeri resmi, serta tampilan multi-image grid Discord yang rapi. |
 | <img src="assets/screenshots/02_reina_ozu_outdoor_grid.png" width="350" alt="Reina Ozu Outdoor" /> | **小津 玲奈 / Reina Ozu**<br>`ID: 63103` | **Kualitas Media Tanpa Kompresi Rusak**:<br>Menunjukkan foto bertema outdoor beresolusi penuh tanpa penurunan kualitas (*lossless in-memory delivery*). |
 | <img src="assets/screenshots/03_mirine_masuda_header.png" width="350" alt="Mirine Masuda Header" /> | **増田 三莉音 / Mirine Masuda**<br>`ID: 63109` | **Konsistensi Format Pesan**:<br>Struktur pesan terstandarisasi untuk setiap member memudahkan pencarian arsip di dalam thread. |
-| <img src="assets/screenshots/04_rio_nagashima_skater_grid.png" width="350" alt="Rio Nagashima Skater" /> | **長嶋 凛桜 / Rio Nagashima**<br>`ID: 63108` | **Dynamic Smart Batching**:<br>Pembagian batch cerdas (Batch 2: 6 foto tema sepatu roda) yang tampil simetris pada antarmuka Discord. |
+| <img src="assets/screenshots/04_mitsuki_setoguchi_skater_grid.png" width="350" alt="Mitsuki Setoguchi Skater" /> | **瀬戸口 心月 / Mitsuki Setoguchi**<br>`ID: 63107` | **Dynamic Smart Batching**:<br>Pembagian batch cerdas (Batch 2: 6 foto tema sepatu roda) yang tampil simetris pada antarmuka Discord. |
 | <img src="assets/screenshots/05_moeka_yada_apple_batch_end.png" width="350" alt="Moeka Yada Final Batch" /> | **矢田 萌華 / Moeka Yada**<br>`ID: 63111` | **Integritas Penutupan Galeri**:<br>Pengiriman batch terakhir (Batch 3: 5 foto tema santai apel) yang menggenapkan seluruh 187 foto tanpa ada berkas tertinggal. |
 
 ---
@@ -244,7 +244,7 @@ nogizaka-colors-discord-uploader/
 │       ├── 01_urumi_morihira_header.png
 │       ├── 02_reina_ozu_outdoor_grid.png
 │       ├── 03_mirine_masuda_header.png
-│       ├── 04_rio_nagashima_skater_grid.png
+│       ├── 04_mitsuki_setoguchi_skater_grid.png
 │       └── 05_moeka_yada_apple_batch_end.png
 ├── docs/
 │   ├── ARCHITECTURE.md               # Dokumentasi teknis arsitektur & Discord Webhook
